@@ -1,0 +1,9 @@
+{
+  "type": "postgres",
+  "user": "handmade",
+  "username": "handmade",
+  "password": "test",
+  "host": "localhost",
+  "database": "handmade",
+  "entities": ["src/**/**.entity{.ts,.js}"]
+}

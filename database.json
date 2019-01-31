@@ -1,0 +1,13 @@
+{
+  "dev": {
+    "driver": "pg",
+    "user": "handmade",
+    "username": "handmade",
+    "password": "test",
+    "host": "localhost",
+    "database": "handmade",
+    "schema": "public",
+    "dialect": "postgres"
+  },
+  "sql-file": true
+}
