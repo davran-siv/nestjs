@@ -4,6 +4,7 @@
     "declaration": false,
     "noImplicitAny": false,
     "noUnusedLocals": false,
+    "sourceMap": true,
     "removeComments": true,
     "noLib": false,
     "emitDecoratorMetadata": true,

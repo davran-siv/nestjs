@@ -14,13 +14,13 @@ export class UserEntity {
   @Column({ name: 'middle_name' })
   middleName: string
 
-  @Column({ name: 'username' })
+  @Column({ type: 'varchar' })
   username: string
 
-  @Column({ name: 'password', select: false })
+  @Column({ name: 'password', select: false, type: 'varchar' })
   password: string
 
-  @Column({ name: 'is_deleted', default: false })
+  @Column({ name: 'is_deleted', default: false, type: 'boolean' })
   isDeleted: boolean
 
   @Column({ name: 'is_active', default: true })
@@ -32,7 +32,7 @@ export class UserEntity {
   @Column({ name: 'updated_at', type: 'time without time zone' })
   updatedAt: Date
 
-  @Column({ name: 'email_address' })
+  @Column({ name: 'email_address', type: 'varchar' })
   emailAddress: string
 
   @Column({ name: 'is_email_verified', default: false })
@@ -40,4 +40,7 @@ export class UserEntity {
 
   @Column({ name: 'birth_date', type: 'date' })
   birthDate: string
+
+  @Column({ type: 'varchar' })
+  photo: string
 }
