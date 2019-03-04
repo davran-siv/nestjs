@@ -7,7 +7,10 @@ import { UserService } from './user.service'
 import { PassportModule } from '@nestjs/passport'
 
 @Module({
-    imports: [TypeOrmModule.forFeature([UserEntity]), PassportModule],
+    imports: [
+      TypeOrmModule.forFeature([UserEntity]),
+      PassportModule.register({ defaultStrategy: 'jwt' })
+    ],
     controllers: [UserController],
     providers: [UserService, UserRepository],
     exports: [UserModule, UserService]
