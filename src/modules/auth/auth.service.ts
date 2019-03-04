@@ -36,5 +36,4 @@ export class AuthService {
     // for example query user by id/email/username
     return {}
   }
-  }
 }
