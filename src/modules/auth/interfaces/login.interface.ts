@@ -1,7 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger'
 import { IsString, IsNotEmpty } from 'class-validator'
 
-export class LoginByCredentialsDTO {
+export class LoginByCredentialsDto {
   @ApiModelProperty()
   @IsString()
   @IsNotEmpty()
@@ -11,4 +11,11 @@ export class LoginByCredentialsDTO {
   @IsString()
   @IsNotEmpty()
   password: string
+}
+
+export class RefreshTokenDto {
+  @ApiModelProperty()
+  @IsString()
+  @IsNotEmpty()
+  refreshToken: string
 }

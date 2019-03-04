@@ -1,14 +1,19 @@
-export interface JwtPayloadDTO {
+export interface JwtPayloadDto {
   id: string
   email: string
-  userName: string,
-  firstName: string,
-  lastName: string
+  username: string
   iat: number
   exp: number
 }
 
-export interface AuthJwtTokesDTO {
+export interface JwtRefreshTokenPayloadDto {
+  id: string
+  iat: number
+  exp: number
+  jti: string
+}
+
+export interface AuthJwtTokesDto {
   accessToken: string
   refreshToken: string
 }
