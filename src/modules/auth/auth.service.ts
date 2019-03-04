@@ -10,7 +10,7 @@ import { LoginByCredentialsDTO } from './interfaces/login.interface'
 @Injectable()
 export class AuthService {
   constructor(
-    // private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService,
     private readonly userService: UserService
   ) {
   }
@@ -31,8 +31,10 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtPayloadDTO): Promise<any> {
+    console.log('payload => ', payload)
     // put some validation logic here
     // for example query user by id/email/username
     return {}
+  }
   }
 }
