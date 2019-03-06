@@ -4,4 +4,8 @@ export class HttpExceptionMessage {
     static emailAlreadyInUse = 'An email is already in use'
     static usernameAlreadyInUse = 'A username is already in use'
   }
+
+  static auth = class {
+    static credentialsAreWrong = 'Credentials are wrong'
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
+import * as c from 'config'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { JwtPayloadDto } from './interfaces/jwt.interface'
 
@@ -8,13 +9,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'secretKey'
+      secretOrKey: c.get('jwtToken.secretKey')
     })
   }
 
   async validate(payload: JwtPayloadDto) {
-    console.log('payload => ', payload)
     const { exp, iat, ...user } = payload
+    // This value will be inserted to req.user
     return user
   }
 

@@ -14,6 +14,7 @@
   },
   "jwtToken": {
     "accessTokenExpiresIn": 1600,
-    "refreshTokenExpiresIn": 16000
+    "refreshTokenExpiresIn": 16000,
+    "secretKey": "secretKey"
   }
 }
