@@ -1,18 +1,22 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
+import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
 import { hashPassword } from '../../utils/password.util'
+import { UserLocationService } from '../user-location/user-location.service'
 import {
   CreateUserRequestDTO,
   UpdateUserRequestDTO,
   UserResponseDTO,
-  UserResponseWithPasswordDTO
+  UserResponseWithPasswordDto
 } from './user.interface'
 import { UserRepository } from './user.repository'
 
 @Injectable()
 export class UserService {
   constructor(
-    private readonly repository: UserRepository) {
+    private readonly repository: UserRepository,
+    private readonly userLocationService: UserLocationService
+  ) {
   }
 
   private async throwExceptionIfEmailInUse(emailAddress: string): Promise<void> {
@@ -34,7 +38,9 @@ export class UserService {
     return UserResponseDTO.of(user)
   }
 
-  async createOne(dto: CreateUserRequestDTO): Promise<UserResponseDTO> {
+  @Transaction()
+  async createOne(dto: CreateUserRequestDTO,
+                  @TransactionManager() entityManager: EntityManager): Promise<UserResponseDTO> {
     const { password, ...user } = dto
     if (dto.password !== dto.passwordConfirmation) {
       throw new ForbiddenException(HttpExceptionMessage.user.passwordsDoNotMatch)
@@ -46,8 +52,13 @@ export class UserService {
     const newUser = await this.repository.createOrUpdateOne({
       password: hashedPassword,
       ...user
-    })
-    return UserResponseDTO.of(newUser)
+    }, entityManager)
+    const location = dto.location
+      ? await this.userLocationService.createOne(dto.location, newUser.id, entityManager)
+      : null
+    const result = { ...newUser, location } as any
+    console.log(result)
+    return UserResponseDTO.of(result)
   }
 
   async updateOne(dto: UpdateUserRequestDTO): Promise<UserResponseDTO> {
@@ -67,8 +78,8 @@ export class UserService {
     await this.repository.createOrUpdateOne(user)
   }
 
-  async findOneByEmailOrUsernameWithPassword(emailOrUsername: string): Promise<UserResponseWithPasswordDTO | undefined> {
+  async findOneByEmailOrUsernameWithPassword(emailOrUsername: string): Promise<UserResponseWithPasswordDto | undefined> {
     const user = await this.repository.findOneByEmailOrUsernameWithPassword(emailOrUsername)
-    return user ? UserResponseWithPasswordDTO.of(user) : user
+    return user ? UserResponseWithPasswordDto.of(user) : user
   }
 }

@@ -1,5 +1,6 @@
-import { UserEntity } from './user.entity'
 import { ApiModelProperty } from '@nestjs/swagger'
+import { UserLocationCreateDto, UserLocationResponseDto } from '../user-location/user-location.interfaces'
+import { UserEntity } from './user.entity'
 
 export class CreateUserRequestDTO {
   @ApiModelProperty()
@@ -16,48 +17,55 @@ export class CreateUserRequestDTO {
   readonly emailAddress: string
   @ApiModelProperty()
   readonly birthDate: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly middleName?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly photo?: string
+  @ApiModelProperty()
+  readonly location: UserLocationCreateDto
 }
 
 export class UpdateUserRequestDTO {
   @ApiModelProperty()
   readonly id: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly firstName?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly lastName?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly middleName?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly username?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly emailAddress?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly birthDate?: string
-  @ApiModelProperty({required: false})
+  @ApiModelProperty({ required: false })
   readonly photo?: string
+  @ApiModelProperty({ required: false })
+  readonly location?: UserLocationCreateDto
 }
 
 export class UserResponseDTO {
   @ApiModelProperty()
-  id: string
+  readonly id: string
   @ApiModelProperty()
-  firstName: string
+  readonly firstName: string
   @ApiModelProperty()
-  lastName: string
+  readonly lastName: string
   @ApiModelProperty()
-  username: string
+  readonly username: string
   @ApiModelProperty()
-  emailAddress: string
+  readonly emailAddress: string
   @ApiModelProperty()
-  birthDate: string
+  readonly birthDate: string
   @ApiModelProperty()
-  middleName: string | null
+  readonly middleName: string | null
   @ApiModelProperty()
-  photo: string | null
+  readonly photo: string | null
+  @ApiModelProperty()
+  location: UserLocationResponseDto | null
+
 
   constructor(model: UserEntity) {
     this.id = model.id
@@ -68,6 +76,7 @@ export class UserResponseDTO {
     this.emailAddress = model.emailAddress
     this.birthDate = model.birthDate
     this.photo = model.photo
+    this.location = model.location ? UserLocationResponseDto.of(model.location) : null
   }
 
   static of(model: UserEntity): UserResponseDTO
@@ -78,16 +87,27 @@ export class UserResponseDTO {
   }
 }
 
-export class UserResponseWithPasswordDTO {
+export class UserResponseWithPasswordDto {
+  @ApiModelProperty()
   id: string
+  @ApiModelProperty()
   firstName: string
+  @ApiModelProperty()
   lastName: string
+  @ApiModelProperty()
   username: string
+  @ApiModelProperty()
   emailAddress: string
+  @ApiModelProperty()
   birthDate: string
+  @ApiModelProperty()
   password: string
+  @ApiModelProperty()
   middleName: string | null
+  @ApiModelProperty()
   photo: string | null
+  @ApiModelProperty()
+  readonly location: UserLocationResponseDto | null
 
   constructor(model: UserEntity) {
     this.id = model.id
@@ -99,14 +119,15 @@ export class UserResponseWithPasswordDTO {
     this.birthDate = model.birthDate
     this.photo = model.photo
     this.password = model.password
+    this.location = model.location ? UserLocationResponseDto.of(model.location) : null
   }
 
-  static of(model: UserEntity): UserResponseWithPasswordDTO
-  static of(model: UserEntity[]): UserResponseWithPasswordDTO[]
+  static of(model: UserEntity): UserResponseWithPasswordDto
+  static of(model: UserEntity[]): UserResponseWithPasswordDto[]
 
-  static of(model: UserEntity | UserEntity[]): UserResponseWithPasswordDTO | UserResponseWithPasswordDTO[] {
+  static of(model: UserEntity | UserEntity[]): UserResponseWithPasswordDto | UserResponseWithPasswordDto[] {
     return model instanceof Array
-      ? model.map(it => new UserResponseWithPasswordDTO(it))
-      : new UserResponseWithPasswordDTO(model)
+      ? model.map(it => new UserResponseWithPasswordDto(it))
+      : new UserResponseWithPasswordDto(model)
   }
 }

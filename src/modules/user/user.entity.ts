@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { UserLocationEntity } from '../user-location/user-location.entity'
 
 @Entity('users')
 export class UserEntity {
@@ -38,9 +39,21 @@ export class UserEntity {
   @Column({ name: 'is_email_verified', default: false })
   isEmailVerified: boolean
 
+  @Column({ name: 'country_code', type: 'varchar' })
+  countryCode: string
+
+  @Column({ name: 'phone_number', type: 'varchar' })
+  phoneNumber: string
+
+  @Column({ name: 'is_phone_verified', default: false })
+  isPhoneVerified: boolean
+
   @Column({ name: 'birth_date', type: 'date' })
   birthDate: string
 
   @Column({ type: 'varchar' })
   photo: string
+
+  @OneToOne(type => UserLocationEntity, location => location.user, { cascade: true })
+  location: UserLocationEntity
 }

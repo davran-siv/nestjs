@@ -5,5 +5,6 @@
   "password": "test",
   "host": "localhost",
   "database": "handmade",
-  "entities": ["src/**/**.entity{.ts,.js}"]
+  "entities": ["src/**/**.entity{.ts,.js}"],
+  "logging": true
 }

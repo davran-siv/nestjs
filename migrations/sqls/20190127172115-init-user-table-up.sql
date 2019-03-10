@@ -16,5 +16,8 @@ CREATE TABLE users
   photo VARCHAR,
   email_address VARCHAR(50) UNIQUE NOT NULL,
   is_email_verified BOOLEAN DEFAULT FALSE,
+  country_code VARCHAR(5),
+  phone_number VARCHAR(20),
+  is_phone_verified BOOLEAN DEFAULT FALSE,
   birth_date DATE NOT NULL
 );
