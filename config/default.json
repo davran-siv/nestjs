@@ -13,8 +13,8 @@
     "saltRounds": 10
   },
   "jwtToken": {
-    "accessTokenExpiresIn": 1600,
-    "refreshTokenExpiresIn": 16000,
+    "accessTokenExpiresIn": 160000,
+    "refreshTokenExpiresIn": 1600000,
     "secretKey": "secretKey"
   }
 }

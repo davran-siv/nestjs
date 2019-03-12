@@ -8,7 +8,7 @@ import {
   UpdateUserRequestDTO,
   UserResponseDTO,
   UserResponseWithPasswordDto
-} from './user.interface'
+} from './user.interfaces'
 import { UserRepository } from './user.repository'
 
 @Injectable()
@@ -40,7 +40,7 @@ export class UserService {
 
   @Transaction()
   async createOne(dto: CreateUserRequestDTO,
-                  @TransactionManager() entityManager: EntityManager): Promise<UserResponseDTO> {
+                  @TransactionManager() entityManager?: EntityManager): Promise<UserResponseDTO> {
     const { password, ...user } = dto
     if (dto.password !== dto.passwordConfirmation) {
       throw new ForbiddenException(HttpExceptionMessage.user.passwordsDoNotMatch)

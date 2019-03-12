@@ -8,5 +8,7 @@ CREATE TABLE "user_locations"
   city   VARCHAR(255)            NOT NULL,
   state VARCHAR(255) NOT NULL,
   zip_code    VARCHAR(255) NOT NULL,
-  street    VARCHAR(255)                              NOT NULL
+  street    VARCHAR(255)                              NOT NULL,
+  created_at            TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+  updated_at            TIMESTAMP WITH TIME ZONE
 );

@@ -1,4 +1,5 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { ProductEntity } from '../product/product.entity'
 import { UserLocationEntity } from '../user-location/user-location.entity'
 
 @Entity('users')
@@ -18,7 +19,7 @@ export class UserEntity {
   @Column({ type: 'varchar' })
   username: string
 
-  @Column({ name: 'password', select: false, type: 'varchar' })
+  @Column({ type: 'varchar', length: 255, select: false })
   password: string
 
   @Column({ name: 'is_deleted', default: false, type: 'boolean' })
@@ -56,4 +57,7 @@ export class UserEntity {
 
   @OneToOne(type => UserLocationEntity, location => location.user, { cascade: true })
   location: UserLocationEntity
+
+  @OneToMany(type => ProductEntity, product => product.createdBy)
+  products: ProductEntity[]
 }

@@ -19,11 +19,9 @@
     ]
   },
   "include": [
-    "packages/**/*",
-    "integration/**/*"
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules",
     "dist"
   ]
 }
