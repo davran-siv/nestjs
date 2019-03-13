@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common'
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
 import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
 import { hashPassword } from '../../utils/password.util'
@@ -35,7 +35,11 @@ export class UserService {
 
   async findOneById(id: string): Promise<UserResponseDTO> {
     const user = await this.repository.findOneById(id)
-    return UserResponseDTO.of(user)
+    if (!user) {
+      throw new NotFoundException()
+    }
+    return user
+    // return UserResponseDTO.of(user)
   }
 
   @Transaction()
