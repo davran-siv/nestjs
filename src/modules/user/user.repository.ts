@@ -18,8 +18,11 @@ export class UserRepository {
   }
 
   findOneById(id: string): Promise<UserEntity> {
-    return this.entity.createQueryBuilder('users')
-               .where('users.id = :id', { id })
+    return this.entity.createQueryBuilder('user')
+               .leftJoinAndSelect('user.products', 'products')
+               .leftJoinAndSelect('user.favoriteProducts', 'favoriteProducts')
+               .select(['user', 'products.id', 'favoriteProducts.id'])
+               .where('user.id = :id', { id })
                .getOne()
   }
 

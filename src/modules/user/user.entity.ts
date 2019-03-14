@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { ProductEntity } from '../product/product.entity'
 import { UserLocationEntity } from '../user-location/user-location.entity'
 
@@ -60,4 +60,12 @@ export class UserEntity {
 
   @OneToMany(type => ProductEntity, product => product.createdBy)
   products: ProductEntity[]
+
+  @ManyToMany(type => ProductEntity)
+  @JoinTable({
+    name: 'users_favorite_products',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' }
+  })
+  favoriteProducts: ProductEntity[]
 }

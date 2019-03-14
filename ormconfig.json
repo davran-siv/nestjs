@@ -6,5 +6,8 @@
   "host": "localhost",
   "database": "handmade",
   "entities": ["src/**/**.entity{.ts,.js}"],
-  "logging": true
+  "migrations": ["migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "migrations"
+  }
 }

@@ -34,9 +34,6 @@ export class AuthService {
                                             throw new UnauthorizedException()
                                           })
     const user = await this.userService.findOneById(refreshTokenPayload.id)
-    if (!user) {
-      throw new NotFoundException()
-    }
     return this.generateTokensPair(user)
   }
 
