@@ -2,7 +2,6 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
 import { hashPassword } from '../../utils/password.util'
-import { UserLocationService } from '../user-location/user-location.service'
 import {
   CreateUserRequestDTO,
   UpdateUserRequestDTO,
@@ -15,7 +14,6 @@ import { UserRepository } from './user.repository'
 export class UserService {
   constructor(
     private readonly repository: UserRepository,
-    private readonly userLocationService: UserLocationService
   ) {
   }
 
@@ -57,11 +55,7 @@ export class UserService {
       password: hashedPassword,
       ...user
     }, entityManager)
-    const location = dto.location
-      ? await this.userLocationService.createOne(dto.location, newUser.id, entityManager)
-      : null
-    const result = { ...newUser, location } as any
-    return UserResponseDTO.of(result)
+    return UserResponseDTO.of(newUser)
   }
 
   async updateOne(dto: UpdateUserRequestDTO): Promise<UserResponseDTO> {

@@ -1,6 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { ProductEntity } from '../product/product.entity'
-import { UserLocationEntity } from '../user-location/user-location.entity'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('users')
 export class UserEntity {
@@ -55,17 +53,4 @@ export class UserEntity {
   @Column({ type: 'varchar' })
   photo: string
 
-  @OneToOne(type => UserLocationEntity, location => location.user, { cascade: true })
-  location: UserLocationEntity
-
-  @OneToMany(type => ProductEntity, product => product.createdBy)
-  products: ProductEntity[]
-
-  @ManyToMany(type => ProductEntity)
-  @JoinTable({
-    name: 'users_favorite_products',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' }
-  })
-  favoriteProducts: ProductEntity[]
 }

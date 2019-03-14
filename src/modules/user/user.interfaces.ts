@@ -1,5 +1,4 @@
 import { ApiModelProperty } from '@nestjs/swagger'
-import { UserLocationCreateDto, UserLocationResponseDto } from '../user-location/user-location.interfaces'
 import { UserEntity } from './user.entity'
 
 export class CreateUserRequestDTO {
@@ -21,8 +20,6 @@ export class CreateUserRequestDTO {
   readonly middleName?: string
   @ApiModelProperty({ required: false })
   readonly photo?: string
-  @ApiModelProperty()
-  readonly location: UserLocationCreateDto
 }
 
 export class UpdateUserRequestDTO {
@@ -42,8 +39,6 @@ export class UpdateUserRequestDTO {
   readonly birthDate?: string
   @ApiModelProperty({ required: false })
   readonly photo?: string
-  @ApiModelProperty({ required: false })
-  readonly location?: UserLocationCreateDto
 }
 
 export class UserResponseDTO {
@@ -63,9 +58,6 @@ export class UserResponseDTO {
   readonly middleName: string | null
   @ApiModelProperty()
   readonly photo: string | null
-  @ApiModelProperty()
-  location: UserLocationResponseDto | null
-
 
   constructor(model: UserEntity) {
     this.id = model.id
@@ -76,7 +68,6 @@ export class UserResponseDTO {
     this.emailAddress = model.emailAddress
     this.birthDate = model.birthDate
     this.photo = model.photo
-    this.location = model.location ? UserLocationResponseDto.of(model.location) : null
   }
 
   static of(model: UserEntity): UserResponseDTO
@@ -106,8 +97,6 @@ export class UserResponseWithPasswordDto {
   middleName: string | null
   @ApiModelProperty()
   photo: string | null
-  @ApiModelProperty()
-  readonly location: UserLocationResponseDto | null
 
   constructor(model: UserEntity) {
     this.id = model.id
@@ -119,7 +108,6 @@ export class UserResponseWithPasswordDto {
     this.birthDate = model.birthDate
     this.photo = model.photo
     this.password = model.password
-    this.location = model.location ? UserLocationResponseDto.of(model.location) : null
   }
 
   static of(model: UserEntity): UserResponseWithPasswordDto
