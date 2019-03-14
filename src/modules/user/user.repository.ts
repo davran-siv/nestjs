@@ -21,7 +21,7 @@ export class UserRepository {
     return this.entity.createQueryBuilder('user')
                .leftJoinAndSelect('user.products', 'products')
                .leftJoinAndSelect('user.favoriteProducts', 'favoriteProducts')
-               // .select(['user', 'products.id', 'favoriteProducts.id'])
+               .select(['user', 'products.id', 'favoriteProducts.id'])
                .where('user.id = :id', { id })
                .getOne()
   }

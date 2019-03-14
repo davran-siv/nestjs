@@ -5,7 +5,7 @@
   "password": "test",
   "host": "localhost",
   "database": "handmade",
-  "entities": ["src/**/**.entity{.ts}"],
+  "entities": ["src/**/**.entity{.ts,.js}"],
   "migrations": ["migrations/*.ts"],
   "cli": {
     "migrationsDir": "migrations"

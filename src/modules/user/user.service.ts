@@ -61,7 +61,6 @@ export class UserService {
       ? await this.userLocationService.createOne(dto.location, newUser.id, entityManager)
       : null
     const result = { ...newUser, location } as any
-    console.log(result)
     return UserResponseDTO.of(result)
   }
 
