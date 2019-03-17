@@ -8,14 +8,21 @@ export class InitStoreEmployeesTable1552753272037 implements MigrationInterface 
       columns: [
         { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isUnique: true, isPrimary: true },
         { name: 'user_id', type: 'UUID' },
+        { name: 'store_id', type: 'UUID' },
         { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', default: 'NOW()' }
       ]
     }), true)
 
-    await queryRunner.createForeignKey('stores', new TableForeignKey({
+    await queryRunner.createForeignKey('store_employees', new TableForeignKey({
       columnNames: ['user_id'],
       referencedColumnNames: ['id'],
       referencedTableName: 'users'
+    }))
+
+    await queryRunner.createForeignKey('store_employees', new TableForeignKey({
+      columnNames: ['store_id'],
+      referencedColumnNames: ['id'],
+      referencedTableName: 'stores'
     }))
   }
 

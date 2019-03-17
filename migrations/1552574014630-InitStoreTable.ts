@@ -17,7 +17,13 @@ export class InitStoreTable1552574014630 implements MigrationInterface {
     }), true)
 
     await queryRunner.createForeignKey('stores', new TableForeignKey({
-      columnNames: ['created_by', 'owner_id'],
+      columnNames: ['created_by'],
+      referencedColumnNames: ['id'],
+      referencedTableName: 'users'
+    }))
+
+    await queryRunner.createForeignKey('stores', new TableForeignKey({
+      columnNames: ['owner_id'],
       referencedColumnNames: ['id'],
       referencedTableName: 'users'
     }))

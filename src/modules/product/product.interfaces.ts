@@ -2,7 +2,7 @@ import { ApiModelProperty } from '@nestjs/swagger'
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator'
 import { ProductCategoryResponseDto } from '../product-category/product-category.interfaces'
 import { UserResponseDTO } from '../user/user.interfaces'
-import { ProductEntity } from './product.entity'
+import { ProductEntity } from './entities/product.entity'
 
 export class ProductCreateDto {
   @ApiModelProperty()

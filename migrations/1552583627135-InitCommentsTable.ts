@@ -9,7 +9,7 @@ export class InitCommentsTable1552583627135 implements MigrationInterface {
         { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isPrimary: true, isUnique: true },
         { name: 'comment_text', type: 'VARCHAR', length: '1000' },
         { name: 'author_id', type: 'UUID' },
-        { name: 'replied_to_comment_id', type: 'UUID' },
+        { name: 'replied_to_comment_id', type: 'UUID', isNullable: true },
         { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', default: 'NOW()' },
         { name: 'updated_at', type: 'TIMESTAMP WITH TIME ZONE', isNullable: true }
       ]

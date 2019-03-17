@@ -1,10 +1,13 @@
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { ProductEntity } from '../product/product.entity'
+import { CartEntity } from '../cart/cart.entity'
+import { CommentEntity } from '../comment/comment.entity'
+import { ProductEntity } from '../product/entities/product.entity'
+import { StoreEntity } from '../store/store.entity'
 import { UserLocationEntity } from '../user-location/user-location.entity'
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column({ name: 'first_name' })
@@ -68,4 +71,13 @@ export class UserEntity {
     inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' }
   })
   favoriteProducts: ProductEntity[]
+
+  @OneToMany(type => StoreEntity, store => store.owner)
+  ownedStores: StoreEntity[]
+
+  @OneToOne(type => CartEntity, cart => cart.user)
+  cart: CartEntity
+
+  @OneToMany(type => CommentEntity, comment => comment.author)
+  comments: CommentEntity[]
 }

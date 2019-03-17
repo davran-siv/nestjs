@@ -6,8 +6,7 @@ export class InitCartTable1552580646109 implements MigrationInterface {
     await queryRunner.createTable(new Table({
       name: 'carts',
       columns: [
-        { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isPrimary: true, isUnique: true },
-        { name: 'user_id', type: 'UUID' }
+        { name: 'user_id', type: 'UUID', isPrimary: true, isUnique: true }
       ]
     }), true)
 

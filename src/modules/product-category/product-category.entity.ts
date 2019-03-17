@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import { ProductEntity } from '../product/product.entity'
+import { ProductEntity } from '../product/entities/product.entity'
 
 @Entity('product_categories')
 export class ProductCategoryEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column({ name: 'category_name', type: 'varchar', length: 100 })
