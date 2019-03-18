@@ -2,12 +2,12 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { UserEntity } from '../user/user.entity'
 
 @Entity('stores')
-export class StoreEntity {
+export class ShopEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column({ name: 'name_of_store', type: 'varchar', length: 100 })
-  nameOfStore: string
+  @Column({ name: 'name_of_shop', type: 'varchar', length: 100 })
+  nameOfShop: string
 
   @Column({ type: 'text' })
   logo: string

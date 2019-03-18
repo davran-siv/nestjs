@@ -43,13 +43,13 @@ export class ProductEntity {
   @JoinColumn({ name: 'category_id' })
   category: ProductCategoryEntity
 
-  @OneToMany(type => ProductImageEntity, image => image.product, { cascade: true })
+  @OneToMany(type => ProductImageEntity, image => image, { cascade: true })
   images: ProductImageEntity[]
 
-  @Column({ name: 'created_at', type: 'time without time zone' })
+  @Column({ name: 'created_at', type: 'time with time zone', readonly: true })
   createdAt: Date
 
-  @Column({ name: 'updated_at', type: 'time without time zone' })
+  @Column({ name: 'updated_at', type: 'time with time zone', nullable: true })
   updatedAt: Date
 
   @BeforeInsert()

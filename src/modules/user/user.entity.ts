@@ -1,8 +1,19 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { CartEntity } from '../cart/cart.entity'
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn
+} from 'typeorm'
+import { UserWalletEntity } from '../user-wallet/user-wallet.entity'
+import { CartEntity } from '../cart/entities/cart.entity'
 import { CommentEntity } from '../comment/comment.entity'
 import { ProductEntity } from '../product/entities/product.entity'
-import { StoreEntity } from '../store/store.entity'
+import { ShopEntity } from '../shop/shop.entity'
 import { UserLocationEntity } from '../user-location/user-location.entity'
 
 @Entity('users')
@@ -30,12 +41,6 @@ export class UserEntity {
 
   @Column({ name: 'is_active', default: true })
   isActive: boolean
-
-  @Column({ name: 'created_at', type: 'time without time zone' })
-  createdAt: Date
-
-  @Column({ name: 'updated_at', type: 'time without time zone' })
-  updatedAt: Date
 
   @Column({ name: 'email_address', type: 'varchar' })
   emailAddress: string
@@ -72,12 +77,31 @@ export class UserEntity {
   })
   favoriteProducts: ProductEntity[]
 
-  @OneToMany(type => StoreEntity, store => store.owner)
-  ownedStores: StoreEntity[]
+  @OneToMany(type => ShopEntity, shop => shop.owner)
+  ownedStores: ShopEntity[]
 
   @OneToOne(type => CartEntity, cart => cart.user)
   cart: CartEntity
 
   @OneToMany(type => CommentEntity, comment => comment.author)
   comments: CommentEntity[]
+
+  @OneToOne(type => UserWalletEntity, wallet => wallet.user)
+  wallet: UserWalletEntity
+
+  @Column({ name: 'created_at', type: 'time with time zone', readonly: true })
+  createdAt: Date
+
+  @Column({ name: 'updated_at', type: 'time with time zone', nullable: true })
+  updatedAt: Date
+
+  @BeforeInsert()
+  setCreatedAtDate() {
+    this.createdAt = new Date()
+  }
+
+  @BeforeUpdate()
+  setUpdatedAtDate() {
+    this.updatedAt = new Date()
+  }
 }

@@ -4,10 +4,10 @@ export class InitStoreTable1552574014630 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.createTable(new Table({
-      name: 'stores',
+      name: 'shops',
       columns: [
         { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isPrimary: true, isUnique: true },
-        { name: 'name_of_store', type: 'VARCHAR', length: '100' },
+        { name: 'name_of_shop', type: 'VARCHAR', length: '100' },
         { name: 'logo', type: 'TEXT' },
         { name: 'motto', type: 'VARCHAR', isNullable: true },
         { name: 'official_email', type: 'VARCHAR', length: '50' },
@@ -16,13 +16,13 @@ export class InitStoreTable1552574014630 implements MigrationInterface {
       ]
     }), true)
 
-    await queryRunner.createForeignKey('stores', new TableForeignKey({
+    await queryRunner.createForeignKey('shops', new TableForeignKey({
       columnNames: ['created_by'],
       referencedColumnNames: ['id'],
       referencedTableName: 'users'
     }))
 
-    await queryRunner.createForeignKey('stores', new TableForeignKey({
+    await queryRunner.createForeignKey('shops', new TableForeignKey({
       columnNames: ['owner_id'],
       referencedColumnNames: ['id'],
       referencedTableName: 'users'
@@ -30,7 +30,7 @@ export class InitStoreTable1552574014630 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropTable('stores', true)
+    await queryRunner.dropTable('shops', true)
   }
 
 }

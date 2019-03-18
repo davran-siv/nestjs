@@ -1,5 +1,4 @@
-import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { ProductEntity } from './product.entity'
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('product_images')
 export class ProductImageEntity {
@@ -9,11 +8,7 @@ export class ProductImageEntity {
   @Column({ type: 'varchar' })
   url: string
 
-  @ManyToOne(type => ProductEntity)
-  @JoinColumn({ name: 'product_id' })
-  product: ProductEntity
-
-  @Column({ name: 'created_at', type: 'time without time zone' })
+  @Column({ name: 'created_at', type: 'time with time zone', readonly: true })
   createdAt: Date
 
   @BeforeInsert()

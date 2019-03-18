@@ -29,10 +29,10 @@ export class CommentEntity {
   @OneToMany(type => CommentEntity, comment => comment.repliedToComment)
   replies: CommentEntity[]
 
-  @Column({ name: 'created_at', type: 'time without time zone', nullable: false })
+  @Column({ name: 'created_at', type: 'time with time zone', nullable: false })
   createdAt: Date
 
-  @Column({ name: 'updated_at', type: 'time without time zone' })
+  @Column({ name: 'updated_at', type: 'time with time zone' })
   updatedAt: Date
 
   @BeforeInsert()
