@@ -9,5 +9,6 @@
   "migrations": ["migrations/*.ts"],
   "cli": {
     "migrationsDir": "migrations"
-  }
+  },
+  "logging": true
 }

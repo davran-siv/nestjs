@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
 import { hashPassword } from '../../utils/password.util'
+import { CartService } from '../cart/cart.service'
 import { UserLocationService } from '../user-location/user-location.service'
 import {
   CreateUserRequestDTO,
@@ -15,7 +16,8 @@ import { UserRepository } from './user.repository'
 export class UserService {
   constructor(
     private readonly repository: UserRepository,
-    private readonly userLocationService: UserLocationService
+    private readonly userLocationService: UserLocationService,
+    private readonly cartService: CartService
   ) {
   }
 
@@ -39,7 +41,6 @@ export class UserService {
       throw new NotFoundException()
     }
     return user
-    // return UserResponseDTO.of(user)
   }
 
   @Transaction()
@@ -60,8 +61,8 @@ export class UserService {
     const location = dto.location
       ? await this.userLocationService.createOne(dto.location, newUser.id, entityManager)
       : null
-    const result = { ...newUser, location } as any
-    return UserResponseDTO.of(result)
+    await this.cartService.createOne(newUser.id, entityManager)
+    return { ...newUser, location }
   }
 
   async updateOne(dto: UpdateUserRequestDTO): Promise<UserResponseDTO> {

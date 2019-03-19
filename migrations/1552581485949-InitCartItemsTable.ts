@@ -8,7 +8,6 @@ export class InitCartItemsTable1552581485949 implements MigrationInterface {
       columns: [
         { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isPrimary: true, isUnique: true },
         { name: 'amount', type: 'INTEGER', default: 1 },
-        { name: 'price_per_unit', type: 'INTEGER' },
         { name: 'cart_id', type: 'UUID' },
         { name: 'product_id', type: 'UUID' },
         { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', default: 'NOW()' },
@@ -18,7 +17,7 @@ export class InitCartItemsTable1552581485949 implements MigrationInterface {
 
     await queryRunner.createForeignKey('cart_items', new TableForeignKey({
       columnNames: ['cart_id'],
-      referencedColumnNames: ['user_id'],
+      referencedColumnNames: ['id'],
       referencedTableName: 'carts'
     }))
 

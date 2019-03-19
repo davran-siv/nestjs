@@ -6,6 +6,7 @@ export class InitUserWalletTable1552648606600 implements MigrationInterface {
     await queryRunner.createTable(new Table({
       name: 'user_wallets',
       columns: [
+        { name: 'id', type: 'UUID', default: 'uuid_generate_v4()', isPrimary: true, isUnique: true },
         { name: 'user_id', type: 'UUID', isPrimary: true },
         { name: 'stripe_id', type: 'VARCHAR', length: '64', isUnique: true, isPrimary: true },
         { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', default: 'NOW()' },

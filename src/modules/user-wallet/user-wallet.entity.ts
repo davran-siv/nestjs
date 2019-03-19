@@ -1,8 +1,11 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToOne } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { UserEntity } from '../user/user.entity'
 
 @Entity('user_wallets')
 export class UserWalletEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string
+
   @OneToOne(type => UserEntity, user => user.wallet, { primary: true })
   @JoinColumn({ name: 'user_id' })
   user: UserEntity

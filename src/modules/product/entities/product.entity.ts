@@ -4,11 +4,15 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn
 } from 'typeorm'
+import { ManufacturingMaterialEntity } from '../../manufacturing-material/manufacturing-material.entity'
 import { ProductCategoryEntity } from '../../product-category/product-category.entity'
+import { ShopEntity } from '../../shop/shop.entity'
 import { UserEntity } from '../../user/user.entity'
 import { ProductImageEntity } from './product-image.entity'
 
@@ -27,13 +31,30 @@ export class ProductEntity {
   description: string
 
   @Column({ name: 'is_in_stock', type: 'boolean' })
-  isInStock: string
+  isInStock: boolean
 
-  @Column({ name: 'made_of', type: 'text', nullable: false })
-  madeOf: string
+  @Column({ type: 'integer' })
+  height: number
+
+  @Column({ type: 'integer' })
+  width: number
+
+  @Column({ type: 'integer' })
+  length: number
+
+  @Column({ type: 'integer' })
+  weight: number
 
   @Column({ name: 'manufacturing_process', type: 'text', nullable: false })
   manufacturingProcess: string
+
+  @ManyToMany(type => ManufacturingMaterialEntity, { cascade: true })
+  @JoinTable({
+    name: 'products_made_of_manufacturing_materials',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'manufacturing_material_id', referencedColumnName: 'id' }
+  })
+  madeOf: ManufacturingMaterialEntity[]
 
   @ManyToOne(type => UserEntity, user => user.products)
   @JoinColumn({ name: 'created_by' })
@@ -45,6 +66,10 @@ export class ProductEntity {
 
   @OneToMany(type => ProductImageEntity, image => image, { cascade: true })
   images: ProductImageEntity[]
+
+  @ManyToOne(type => ShopEntity, shop => shop.products)
+  @JoinColumn({ name: 'shop_id' })
+  shop: ShopEntity
 
   @Column({ name: 'created_at', type: 'time with time zone', readonly: true })
   createdAt: Date

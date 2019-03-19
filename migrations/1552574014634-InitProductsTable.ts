@@ -18,7 +18,7 @@ export class InitProductTable1552574014634 implements MigrationInterface {
         { name: 'weight', type: 'INTEGER' },
         { name: 'created_by', type: 'UUID' },
         { name: 'category_id', type: 'UUID' },
-        { name: 'store_id', type: 'UUID' },
+        { name: 'shop_id', type: 'UUID' },
         { name: 'created_at', type: 'TIMESTAMP WITH TIME ZONE', default: 'NOW()' },
         { name: 'updated_at', type: 'TIMESTAMP WITH TIME ZONE', isNullable: true }
       ]
@@ -35,9 +35,9 @@ export class InitProductTable1552574014634 implements MigrationInterface {
       referencedTableName: 'product_categories'
     }))
     await queryRunner.createForeignKey('products', new TableForeignKey({
-      columnNames: ['store_id'],
+      columnNames: ['shop_id'],
       referencedColumnNames: ['id'],
-      referencedTableName: 'stores'
+      referencedTableName: 'shops'
     }))
 
   }

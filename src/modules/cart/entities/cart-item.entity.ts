@@ -10,9 +10,6 @@ export class CartItemEntity {
   @Column({ type: 'integer', default: 0 })
   amount: number
 
-  @Column({ name: 'price_per_unit', type: 'integer' })
-  pricePerUnit: number
-
   @ManyToOne(type => ProductEntity)
   @JoinColumn({ name: 'product_id' })
   product: ProductEntity

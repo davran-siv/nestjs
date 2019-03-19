@@ -11,10 +11,11 @@ export class ProductService {
   }
 
   createOne(dto: ProductCreateDto, userId, entityManager?: EntityManager) {
-    const { categoryId, ...rest } = dto
+    const { categoryId, shopId, ...rest } = dto
     return this.repository.createOrUpdateOne({
       ...rest,
       category: { id: categoryId },
+      shop: { id: shopId },
       createdBy: { id: userId }
     }, entityManager)
   }
