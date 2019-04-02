@@ -6,14 +6,16 @@ import { CartEntity } from './cart.entity'
 import { CartRepository } from './cart.repository'
 import { CartService } from './cart.service'
 
+const CartServiceProvider = {provide: 'cartService', useClass: CartService}
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([CartEntity]),
     CartItemModule
   ],
-  providers: [CartService, CartRepository],
+  providers: [CartServiceProvider, CartRepository],
   controllers: [CartController],
-  exports: [CartModule, CartService]
+  exports: [CartModule, CartServiceProvider]
 })
 export class CartModule {
 }

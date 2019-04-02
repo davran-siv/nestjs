@@ -5,8 +5,21 @@ import { CartItemService } from '../cart-item/cart-item.service'
 import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from './cart.interfaces'
 import { CartRepository } from './cart.repository'
 
+
+export interface ICartService {
+  createOne(userId: string, entityManager?: EntityManager): Promise<CartResponseDto>
+
+  findOneByUserId(userId: string): Promise<CartResponseDto>
+
+  addToItemToCartByUserId(dto: AddItemToCartDto, userId: string): Promise<CartResponseDto>
+
+  updateItemInCartByCartItemId(dto: CartUpdateCartItemAmountDto, userId: string): Promise<CartResponseDto>
+
+  deleteOneByIdAndCartId(cartItemId: string, userId: string): Promise<CartResponseDto>
+}
+
 @Injectable()
-export class CartService {
+export class CartService implements ICartService {
   constructor(
     private readonly repository: CartRepository,
     private readonly cartItemService: CartItemService

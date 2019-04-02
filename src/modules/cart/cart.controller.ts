@@ -1,17 +1,24 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger'
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUseTags
+} from '@nestjs/swagger'
 import { CurrentUser } from '../../common/currentUser.decorator'
 import { JwtPayloadDto } from '../auth/interfaces/jwt.interface'
 import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from './cart.interfaces'
-import { CartService } from './cart.service'
+import { ICartService } from './cart.service'
 
 @ApiUseTags('Cart')
 @ApiBearerAuth()
 @Controller('cart')
 export class CartController {
   constructor(
-    private readonly service: CartService
+    @Inject('cartService') private readonly service: ICartService
   ) {
   }
 
@@ -26,7 +33,7 @@ export class CartController {
 
   @Post()
   @ApiOperation({ title: 'Add an item to current user\'s cart' })
-  @ApiOkResponse({ description: 'An item successfully added to cart', type: CartResponseDto })
+  @ApiCreatedResponse({ description: 'An item successfully added to cart', type: CartResponseDto })
   @UseGuards(AuthGuard())
   addItemToMyCart(@Body() dto: AddItemToCartDto, @CurrentUser() user: JwtPayloadDto): Promise<CartResponseDto> {
     return this.service.addToItemToCartByUserId(dto, user.id)
