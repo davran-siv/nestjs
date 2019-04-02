@@ -1,6 +1,6 @@
 import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { CartEntity } from './cart.entity'
-import { ProductEntity } from '../../product/entities/product.entity'
+import { CartEntity } from '../cart/cart.entity'
+import { ProductEntity } from '../product/entities/product.entity'
 
 @Entity('cart_items')
 export class CartItemEntity {
@@ -10,7 +10,7 @@ export class CartItemEntity {
   @Column({ type: 'integer', default: 0 })
   amount: number
 
-  @ManyToOne(type => ProductEntity)
+  @ManyToOne(type => ProductEntity, { eager: true })
   @JoinColumn({ name: 'product_id' })
   product: ProductEntity
 
@@ -18,10 +18,10 @@ export class CartItemEntity {
   @JoinColumn({ name: 'cart_id' })
   cart: CartEntity
 
-  @Column({ name: 'created_at', type: 'time with time zone', nullable: false })
+  @Column({ name: 'created_at', type: 'time with time zone' })
   createdAt: Date
 
-  @Column({ name: 'updated_at', type: 'time with time zone' })
+  @Column({ name: 'updated_at', type: 'time with time zone', nullable: true })
   updatedAt: Date
 
   @BeforeInsert()

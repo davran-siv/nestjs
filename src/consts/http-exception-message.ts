@@ -8,4 +8,8 @@ export class HttpExceptionMessage {
   static auth = class {
     static credentialsAreWrong = 'Credentials are wrong'
   }
+
+  static cart = class {
+    static notFound = 'Cart not found'
+  }
 }

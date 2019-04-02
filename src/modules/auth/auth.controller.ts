@@ -4,7 +4,7 @@ import { AuthService } from './auth.service'
 import { AuthJwtTokesDto } from './interfaces/jwt.interface'
 import { LoginByCredentialsDto, RefreshTokenDto } from './interfaces/login.interface'
 
-@ApiUseTags('auth')
+@ApiUseTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {

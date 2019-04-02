@@ -30,7 +30,7 @@ export class InitCartItemsTable1552581485949 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await  queryRunner.dropTable('cart_items', true)
+    await queryRunner.dropTable('cart_items', true)
   }
 
 }

@@ -1,17 +1,25 @@
-export interface ManufacturingMaterialCreateDto {
+import { ApiModelProperty } from '@nestjs/swagger'
+
+export class ManufacturingMaterialCreateDto {
+  @ApiModelProperty()
   material: string
 }
 
-export interface ManufacturingMaterialResponseDto {
+export class ManufacturingMaterialResponseDto {
+  @ApiModelProperty()
   id: string
+  @ApiModelProperty()
   material: string
 }
 
-export interface ManufacturingMaterialUpdateDto {
+export class ManufacturingMaterialUpdateDto {
+  @ApiModelProperty()
   id: string
+  @ApiModelProperty()
   material: string
 }
 
-export interface ManufacturingMaterialDeleteDto {
+export class ManufacturingMaterialDeleteDto {
+  @ApiModelProperty()
   id: string
 }

@@ -9,12 +9,12 @@ import {
   OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm'
-import { UserWalletEntity } from '../user-wallet/user-wallet.entity'
-import { CartEntity } from '../cart/entities/cart.entity'
+import { CartEntity } from '../cart/cart.entity'
 import { CommentEntity } from '../comment/comment.entity'
 import { ProductEntity } from '../product/entities/product.entity'
 import { ShopEntity } from '../shop/shop.entity'
 import { UserLocationEntity } from '../user-location/user-location.entity'
+import { UserWalletEntity } from '../user-wallet/user-wallet.entity'
 
 @Entity('users')
 export class UserEntity {

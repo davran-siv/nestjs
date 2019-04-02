@@ -17,9 +17,9 @@ export class ProductCategoryResponseDto {
   categoryName: string
   @ApiModelProperty()
   isActive: boolean
-  @ApiModelProperty()
+  @ApiModelProperty({ type: ProductCategoryResponseDto, required: false })
   parentCategory: ProductCategoryResponseDto | null
-  @ApiModelProperty()
+  @ApiModelProperty({ type: ProductCategoryResponseDto, required: false })
   childCategories: ProductCategoryResponseDto[] | null
 
   constructor(model: ProductCategoryEntity) {

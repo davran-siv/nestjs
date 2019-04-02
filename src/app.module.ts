@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AuthModule } from './modules/auth/auth.module'
+import { CartItemModule } from './modules/cart-item/cart-item.module'
 import { CartModule } from './modules/cart/cart.module'
 import { CommentModule } from './modules/comment/comment.module'
 import { ManufacturingMaterialModule } from './modules/manufacturing-material/manufacturing-material.module'
@@ -25,7 +26,8 @@ import { UserModule } from './modules/user/user.module'
     ManufacturingMaterialModule,
     ProductReviewModule,
     ShopModule,
-    UserWalletModule
+    UserWalletModule,
+    CartItemModule
   ],
   controllers: [],
   providers: []

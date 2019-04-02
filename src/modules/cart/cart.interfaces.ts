@@ -1,27 +1,29 @@
-import { ProductResponseDto } from '../product/product.interfaces'
+import { ApiModelProperty } from '@nestjs/swagger'
+import { CartItemResponseDto } from '../cart-item/cart-item.interfaces'
 
-export interface CartResponseDto {
+
+export class CartResponseDto {
+  @ApiModelProperty()
+  id: string
+  @ApiModelProperty({ type: CartItemResponseDto })
   items: CartItemResponseDto[]
 }
 
-export class CartItemResponseDto {
-  id: string
-  amount: number
-  product: ProductResponseDto
-  createdAt: Date
-  updatedAt: Date | null
-}
-
 export class AddItemToCartDto {
-  prodcuctId: string
+  @ApiModelProperty()
+  productId: string
+  @ApiModelProperty()
   amount: number
 }
 
-export class RemoveItemFromCartDto {
+export class CartDeleteCartItremDto {
+  @ApiModelProperty()
   id: string
 }
 
-export class UpdateAmountDto {
-  id: string
+export class CartUpdateCartItemAmountDto {
+  @ApiModelProperty()
+  cartItemId: string
+  @ApiModelProperty()
   amount: number
 }

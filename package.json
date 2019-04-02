@@ -5,16 +5,10 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/main.ts",
-    "debug": {
-      "watch": [
-        "src"
-      ],
-      "ext": "ts",
-      "ignore": [
-        "src/**/*.spec.ts"
-      ],
-      "exec": "ts-node --inspect=5858 -r tsconfig-paths/register src/main.hmr.ts"
-    },
+    "build": "tsc",
+    "debug": "node $NODE_DEBUG_OPTION --inspect-brk -r tsconfig-paths/register -r ts-node/register src/main.ts",
+    "clean": "node ./node_modules/rimraf/bin.js ./dist/",
+    "tsc": "node ./node_modules/typescript/bin/tsc",
     "prestart:prod": "tsc",
     "start:prod": "node dist/main.js",
     "typeorm:run": "ts-node ./node_modules/.bin/typeorm migration:run",
@@ -44,6 +38,7 @@
     "pg": "^7.9.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.0.0",
+    "tsconfig-paths": "^3.8.0",
     "typeorm": "^0.2.12",
     "typescript": "^3.3.3333",
     "uuid": "^3.3.2"

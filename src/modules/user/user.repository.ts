@@ -17,7 +17,7 @@ export class UserRepository {
     return entityManager ? entityManager.save(entity) : this.entity.save(entity)
   }
 
-  findOneById(id: string): Promise<UserEntity> {
+  findOneById(id: string): Promise<UserEntity | undefined> {
     return this.entity.createQueryBuilder('user')
                .leftJoinAndSelect('user.products', 'products')
                .leftJoinAndSelect('user.favoriteProducts', 'favoriteProducts')
@@ -26,19 +26,19 @@ export class UserRepository {
                .getOne()
   }
 
-  findOneByEmail(emailAddress: string): Promise<UserEntity> {
+  findOneByEmail(emailAddress: string): Promise<UserEntity | undefined> {
     return this.entity.createQueryBuilder('users')
                .where('users.emailAddress = :emailAddress', { emailAddress })
                .getOne()
   }
 
-  findOneByUsername(username: string): Promise<UserEntity> {
+  findOneByUsername(username: string): Promise<UserEntity | undefined> {
     return this.entity.createQueryBuilder('users')
                .where('users.emailAddress = :username', { username })
                .getOne()
   }
 
-  findOneByEmailOrUsernameWithPassword(emailAddressOrUsername: string): Promise<UserEntity> {
+  findOneByEmailOrUsernameWithPassword(emailAddressOrUsername: string): Promise<UserEntity | undefined> {
     return this.entity.createQueryBuilder('users')
                .where('users.emailAddress = :emailAddressOrUsername', { emailAddressOrUsername })
                .orWhere('users.username = :emailAddressOrUsername', { emailAddressOrUsername })

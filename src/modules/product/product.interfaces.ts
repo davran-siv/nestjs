@@ -60,7 +60,7 @@ export class ProductCreateDto {
   @IsNotEmpty()
   shopId: string
 
-  @ApiModelProperty({ required: false })
+  @ApiModelProperty({ type: ManufacturingMaterialResponseDto, required: false })
   @IsOptional()
   @IsArray()
   madeOf?: ManufacturingMaterialResponseDto[]
@@ -99,13 +99,13 @@ export class ProductResponseDto {
   @ApiModelProperty()
   weight: number
 
-  @ApiModelProperty()
+  @ApiModelProperty({ type: ProductCategoryResponseDto })
   category: ProductCategoryResponseDto
 
-  @ApiModelProperty()
+  @ApiModelProperty({ type: UserResponseDTO })
   createdBy: UserResponseDTO
 
-  @ApiModelProperty({ required: false })
+  @ApiModelProperty({ type: ManufacturingMaterialResponseDto, required: false })
   madeOf?: ManufacturingMaterialResponseDto[]
 
   @ApiModelProperty({ required: false })

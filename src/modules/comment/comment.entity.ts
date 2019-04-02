@@ -24,7 +24,7 @@ export class CommentEntity {
 
   @ManyToOne(type => CommentEntity, comment => comment.replies)
   @JoinColumn({ name: 'replied_to_comment_id' })
-  repliedToComment: string
+  repliedToComment: CommentEntity
 
   @OneToMany(type => CommentEntity, comment => comment.repliedToComment)
   replies: CommentEntity[]

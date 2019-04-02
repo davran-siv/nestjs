@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
-import { CurrentUser } from '../../common/CurrentUser.decorator'
+import { CurrentUser } from '../../common/currentUser.decorator'
 import { JwtPayloadDto } from '../auth/interfaces/jwt.interface'
 import { ProductCreateDto, ProductResponseDto } from './product.interfaces'
 import { ProductService } from './product.service'

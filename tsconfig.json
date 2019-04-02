@@ -2,6 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": false,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "sourceMap": true,
@@ -9,11 +12,11 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es2017",
     "allowJs": true,
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": "./src",
-    "noEmit": true,
+    "baseUrl": "./",
     "lib": [
       "es7"
     ]
