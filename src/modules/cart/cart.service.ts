@@ -6,7 +6,7 @@ import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from '
 import { CartRepository } from './cart.repository'
 
 
-export interface ICartService {
+export interface CartService {
   createOne(userId: string, entityManager?: EntityManager): Promise<CartResponseDto>
 
   findOneByUserId(userId: string): Promise<CartResponseDto>
@@ -19,7 +19,7 @@ export interface ICartService {
 }
 
 @Injectable()
-export class CartService implements ICartService {
+export class DefaultCartService implements CartService {
   constructor(
     private readonly repository: CartRepository,
     private readonly cartItemService: CartItemService

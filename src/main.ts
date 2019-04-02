@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule)
   initSwagger(app)
   app.useGlobalPipes(new ValidationPipe())
+  app.setGlobalPrefix('api')
   await app.listen(3000)
 }
 
@@ -16,10 +17,10 @@ const initSwagger = (app) => {
     .setTitle('Handmade API')
     .setDescription('Handmade API documentation')
     .setVersion('1.0')
-    // .addTag('cats')
+    .setBasePath('/api')
     .build()
   const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('swagger', app, document)
 }
 
 

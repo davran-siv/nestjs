@@ -2,7 +2,7 @@ import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nest
 import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
 import { hashPassword } from '../../utils/password.util'
-import { ICartService } from '../cart/cart.service'
+import { CartService } from '../cart/cart.service'
 import { UserLocationService } from '../user-location/user-location.service'
 import {
   CreateUserRequestDTO,
@@ -17,7 +17,7 @@ export class UserService {
   constructor(
     private readonly repository: UserRepository,
     private readonly userLocationService: UserLocationService,
-    @Inject('cartService') private readonly cartService: ICartService
+    @Inject('cartService') private readonly cartService: CartService
   ) {
   }
 

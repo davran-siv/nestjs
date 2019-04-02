@@ -4,9 +4,9 @@ import { CartItemModule } from '../cart-item/cart-item.module'
 import { CartController } from './cart.controller'
 import { CartEntity } from './cart.entity'
 import { CartRepository } from './cart.repository'
-import { CartService } from './cart.service'
+import { DefaultCartService } from './cart.service'
 
-const CartServiceProvider = {provide: 'cartService', useClass: CartService}
+const CartServiceProvider = { provide: 'cartService', useClass: DefaultCartService }
 
 @Module({
   imports: [

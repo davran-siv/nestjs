@@ -11,14 +11,14 @@ import {
 import { CurrentUser } from '../../common/currentUser.decorator'
 import { JwtPayloadDto } from '../auth/interfaces/jwt.interface'
 import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from './cart.interfaces'
-import { ICartService } from './cart.service'
+import { CartService } from './cart.service'
 
 @ApiUseTags('Cart')
 @ApiBearerAuth()
 @Controller('cart')
 export class CartController {
   constructor(
-    @Inject('cartService') private readonly service: ICartService
+    @Inject('cartService') private readonly service: CartService
   ) {
   }
 
