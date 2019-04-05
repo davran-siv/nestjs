@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common'
+import { INestApplication, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { ApplicationModule } from './app.module'
@@ -12,7 +12,7 @@ async function bootstrap() {
   await app.listen(3000)
 }
 
-const initSwagger = (app) => {
+const initSwagger = (app: INestApplication) => {
   const options = new DocumentBuilder()
     .setTitle('Handmade API')
     .setDescription('Handmade API documentation')

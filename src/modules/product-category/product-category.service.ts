@@ -13,7 +13,7 @@ export class ProductCategoryService {
     const { parentCategoryId, ...rest } = dto
     return this.repository.createOrUpdateOne({
       ...rest,
-      parentCategory: parentCategoryId && { id: parentCategoryId }
+      parentCategory: parentCategoryId ? { id: parentCategoryId } : undefined
     })
   }
 

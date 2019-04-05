@@ -1,6 +1,7 @@
 import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EntityManager, Transaction, TransactionManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
+import Injectables from '../../consts/Injectables'
 import { hashPassword } from '../../utils/password.util'
 import { CartService } from '../cart/cart.service'
 import { UserLocationService } from '../user-location/user-location.service'
@@ -17,7 +18,7 @@ export class UserService {
   constructor(
     private readonly repository: UserRepository,
     private readonly userLocationService: UserLocationService,
-    @Inject('cartService') private readonly cartService: CartService
+    @Inject(Injectables.services.cart) private readonly cartService: CartService
   ) {
   }
 

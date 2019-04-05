@@ -11,5 +11,14 @@ export class HttpExceptionMessage {
 
   static cart = class {
     static notFound = 'Cart not found'
+    static cartItemNotFound = 'Cart item not found'
+  }
+
+  static product = class {
+    static notFound = 'Product not found'
+  }
+
+  static comment = class {
+    static notFound = 'Comment not found'
   }
 }

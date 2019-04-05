@@ -15,11 +15,10 @@ export class ProductCategoryEntity {
   @OneToMany(type => ProductCategoryEntity, category => category.parentCategory)
   childCategories: ProductCategoryEntity[]
 
-  @ManyToOne(type => ProductCategoryEntity, category => category.childCategories)
+  @ManyToOne(type => ProductCategoryEntity, category => category.childCategories, { nullable: true })
   @JoinColumn({ name: 'parent_category_id' })
   parentCategory: ProductCategoryEntity
 
   @OneToMany(type => ProductEntity, product => product.category)
   products: ProductEntity
-
 }

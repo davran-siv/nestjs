@@ -1,6 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { EntityManager } from 'typeorm'
 import { HttpExceptionMessage } from '../../consts/http-exception-message'
+import Injectables from '../../consts/Injectables'
 import { CartItemService } from '../cart-item/cart-item.service'
 import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from './cart.interfaces'
 import { CartRepository } from './cart.repository'
@@ -21,7 +22,7 @@ export interface CartService {
 @Injectable()
 export class DefaultCartService implements CartService {
   constructor(
-    private readonly repository: CartRepository,
+    @Inject(Injectables.repositories.cart) private readonly repository: CartRepository,
     private readonly cartItemService: CartItemService
   ) {
   }

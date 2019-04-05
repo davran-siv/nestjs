@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 import { UserEntity } from '../user/user.entity'
 import { CommentEntity } from './comment.entity'
 
@@ -10,8 +10,8 @@ export class CommentResponseDto {
   commentText: string
   @ApiModelProperty({ type: UserEntity })
   author: UserEntity
-  @ApiModelProperty()
-  repliedToComment: string
+  @ApiModelProperty({ type: CommentEntity })
+  repliedToComment: CommentEntity | null
   @ApiModelProperty({ type: CommentEntity })
   replies: CommentEntity[]
   @ApiModelProperty()
@@ -27,6 +27,7 @@ export class CommentCreateDto {
   commentText: string
   @ApiModelProperty({ required: false })
   @IsString()
+  @IsOptional()
   repliedToCommentId?: string
 }
 
@@ -41,7 +42,7 @@ export class CommentUpdateDto {
   commentText: string
 }
 
-export class CommentdeleteDto {
+export class CommentDeleteDto {
   @ApiModelProperty()
   @IsString()
   @IsNotEmpty()

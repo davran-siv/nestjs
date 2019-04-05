@@ -26,6 +26,7 @@
     "@types/bcrypt": "^3.0.0",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/config": "0.0.34",
+    "@types/passport-jwt": "^3.0.1",
     "@types/uuid": "^3.4.4",
     "bcrypt-nodejs": "0.0.3",
     "class-transformer": "^0.2.0",

@@ -11,13 +11,12 @@ export class ProductCategoryRepository {
   ) {
   }
 
-  createOrUpdateOne(dto: DeepPartial<ProductCategoryEntity>, entityManager?: EntityManager) {
+  createOrUpdateOne(dto: DeepPartial<ProductCategoryEntity>, entityManager?: EntityManager): Promise<ProductCategoryEntity> {
     const entity = this.entity.create(dto)
-    console.log(entity)
     return entityManager ? entityManager.save(entity) : this.entity.save(entity)
   }
 
-  getAll() {
+  getAll(): Promise<ProductCategoryEntity[]> {
     return this.entity.createQueryBuilder('productCategory')
                .leftJoinAndSelect('productCategory.childCategories', 'childCategories')
                .where('productCategory.parentCategory IS NULL')

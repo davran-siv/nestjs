@@ -16,7 +16,7 @@ export class ProductRepository {
     return entityManager ? entityManager.save(entity) : this.entity.save(entity)
   }
 
-  getOneById(id: string): Promise<ProductEntity> {
+  getOneById(id: string): Promise<ProductEntity | undefined> {
     return this.entity.createQueryBuilder('product')
                .leftJoinAndSelect('product.category', 'category')
                .leftJoinAndSelect('product.createdBy', 'createdBy')

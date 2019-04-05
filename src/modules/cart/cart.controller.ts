@@ -9,6 +9,7 @@ import {
   ApiUseTags
 } from '@nestjs/swagger'
 import { CurrentUser } from '../../common/currentUser.decorator'
+import Injectables from '../../consts/Injectables'
 import { JwtPayloadDto } from '../auth/interfaces/jwt.interface'
 import { AddItemToCartDto, CartResponseDto, CartUpdateCartItemAmountDto } from './cart.interfaces'
 import { CartService } from './cart.service'
@@ -18,7 +19,7 @@ import { CartService } from './cart.service'
 @Controller('cart')
 export class CartController {
   constructor(
-    @Inject('cartService') private readonly service: CartService
+    @Inject(Injectables.services.cart) private readonly service: CartService
   ) {
   }
 

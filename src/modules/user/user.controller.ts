@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 import { CreateUserRequestDTO, UpdateUserRequestDTO, UserResponseDTO } from './user.interfaces'
 import { UserService } from './user.service'
-import { AuthGuard } from '@nestjs/passport'
 
 @Controller('user')
 export class UserController {
@@ -12,7 +12,7 @@ export class UserController {
   @Get(':id')
   @HttpCode(200)
   @UseGuards(AuthGuard())
-  findOne(@Param('id') id): Promise<UserResponseDTO> {
+  findOne(@Param('id') id: string): Promise<UserResponseDTO> {
     return this.service.findOneById(id)
   }
 
@@ -28,7 +28,7 @@ export class UserController {
   }
 
   @Delete(':id')
-  removeOne(@Param('id') id): Promise<void> {
+  removeOne(@Param('id') id: string): Promise<void> {
     return this.service.removeOne(id)
   }
 

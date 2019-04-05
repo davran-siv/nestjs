@@ -119,8 +119,8 @@ export class ProductResponseDto {
     this.isInStock = model.isInStock
     this.madeOf = model.madeOf
     this.manufacturingProcess = model.manufacturingProcess
-    this.category = model.category ? ProductCategoryResponseDto.of(model.category) : null
-    this.createdBy = model.createdBy ? UserResponseDTO.of(model.createdBy) : null
+    this.category = ProductCategoryResponseDto.of(model.category)
+    this.createdBy = UserResponseDTO.of(model.createdBy)
   }
 
   static of(model: ProductEntity): ProductResponseDto {

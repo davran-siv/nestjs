@@ -3,8 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { EntityManager, Repository } from 'typeorm'
 import { CartEntity } from './cart.entity'
 
+export interface CartRepository {
+  createOne(userId: string, entityManager?: EntityManager): Promise<CartEntity>
+
+  findOneByUserId(userId: string): Promise<CartEntity | undefined>
+}
+
 @Injectable()
-export class CartRepository {
+export class DefaultCartRepository implements CartRepository {
   constructor(
     @InjectRepository(CartEntity)
     private readonly entity: Repository<CartEntity>
@@ -17,9 +23,9 @@ export class CartRepository {
     return entityManager ? entityManager.save(entity) : this.entity.save(entity)
   }
 
-  findOneByUserId(userId: string): Promise<CartEntity> {
+  findOneByUserId(userId: string): Promise<CartEntity | undefined> {
     return this.entity.createQueryBuilder('cart')
-               // .where('user.id = :userId', { userId })
+               .where('user.id = :userId', { userId })
                .leftJoin('cart.user', 'user')
                .leftJoinAndSelect('cart.items', 'items')
                .getOne()

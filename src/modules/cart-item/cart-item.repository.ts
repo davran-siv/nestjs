@@ -10,7 +10,7 @@ export class CartItemRepository {
   ) {
   }
 
-  findOneById(id: string): Promise<CartItemEntity> {
+  findOneById(id: string): Promise<CartItemEntity | undefined> {
     return this.entity.createQueryBuilder('cartItem')
                .where('cartItem.id = :id', { id })
                .getOne()

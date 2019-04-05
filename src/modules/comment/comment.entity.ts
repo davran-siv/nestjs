@@ -18,7 +18,13 @@ export class CommentEntity {
   @Column({ name: 'comment_text', type: 'varchar', length: 1000 })
   commentText: string
 
-  @ManyToOne(type => UserEntity)
+  @Column({ name: 'replied_to_comment_id', type: 'uuid', nullable: true })
+  repliedToCommentId: string
+
+  @Column({ name: 'is_deleted', type: 'boolean' })
+  isDeleted: boolean
+
+  @ManyToOne(type => UserEntity, { eager: true })
   @JoinColumn({ name: 'author_id' })
   author: UserEntity
 
@@ -29,10 +35,10 @@ export class CommentEntity {
   @OneToMany(type => CommentEntity, comment => comment.repliedToComment)
   replies: CommentEntity[]
 
-  @Column({ name: 'created_at', type: 'time with time zone', nullable: false })
+  @Column({ name: 'created_at', type: 'time with time zone' })
   createdAt: Date
 
-  @Column({ name: 'updated_at', type: 'time with time zone' })
+  @Column({ name: 'updated_at', type: 'time with time zone', nullable: true })
   updatedAt: Date
 
   @BeforeInsert()
