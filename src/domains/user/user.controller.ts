@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { CreateUserRequestDTO, UpdateUserRequestDTO, UserResponseDTO } from './user.interfaces'
-import { UserService } from './user.service'
+import { UserService } from '../../persistence/user/user.service'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('user')

@@ -1,8 +1,7 @@
 import * as bcrypt from 'bcrypt-nodejs'
-import * as c from 'config'
 
 function hashPassword(password: string): string {
-  const salt = bcrypt.genSaltSync(c.get('passwords.saltRounds'));
+  const salt = bcrypt.genSaltSync('salt');
   return bcrypt.hashSync(password, salt)
 }
 

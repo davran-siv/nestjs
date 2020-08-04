@@ -7,7 +7,7 @@ import {
   UpdateUserRequestDTO,
   UserResponseDTO,
   UserResponseWithPasswordDto
-} from './user.interfaces'
+} from '../../domains/user/user.interfaces'
 import { UserRepository } from './user.repository'
 
 @Injectable()

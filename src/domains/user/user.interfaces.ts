@@ -1,62 +1,62 @@
-import { ApiModelProperty } from '@nestjs/swagger'
-import { UserEntity } from './user.entity'
+import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
+import { UserEntity } from '../../persistence/user/user.entity'
 
 export class CreateUserRequestDTO {
-  @ApiModelProperty()
+  @ApiProperty()
   readonly firstName: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly lastName: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly username: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly password: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly passwordConfirmation: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly emailAddress: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly birthDate: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly middleName?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly photo?: string
 }
 
 export class UpdateUserRequestDTO {
-  @ApiModelProperty()
+  @ApiProperty()
   readonly id: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly firstName?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly lastName?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly middleName?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly username?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly emailAddress?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly birthDate?: string
-  @ApiModelProperty({ required: false })
+  @ApiPropertyOptional()
   readonly photo?: string
 }
 
 export class UserResponseDTO {
-  @ApiModelProperty()
+  @ApiProperty()
   readonly id: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly firstName: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly lastName: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly username: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly emailAddress: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly birthDate: string
-  @ApiModelProperty()
+  @ApiProperty()
   readonly middleName: string | null
-  @ApiModelProperty()
+  @ApiProperty()
   readonly photo: string | null
 
   constructor(model: UserEntity) {
@@ -79,23 +79,23 @@ export class UserResponseDTO {
 }
 
 export class UserResponseWithPasswordDto {
-  @ApiModelProperty()
+  @ApiProperty()
   id: string
-  @ApiModelProperty()
+  @ApiProperty()
   firstName: string
-  @ApiModelProperty()
+  @ApiProperty()
   lastName: string
-  @ApiModelProperty()
+  @ApiProperty()
   username: string
-  @ApiModelProperty()
+  @ApiProperty()
   emailAddress: string
-  @ApiModelProperty()
+  @ApiProperty()
   birthDate: string
-  @ApiModelProperty()
+  @ApiProperty()
   password: string
-  @ApiModelProperty()
+  @ApiProperty()
   middleName: string | null
-  @ApiModelProperty()
+  @ApiProperty()
   photo: string | null
 
   constructor(model: UserEntity) {
