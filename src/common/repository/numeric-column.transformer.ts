@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from '../../utils'
+import {isNullOrUndefined} from 'util'
 
 export class NumericColumnTransformer {
   to(data?: number | null): number | null | undefined {
@@ -17,6 +17,6 @@ export class NumericColumnTransformer {
         return res
       }
     }
-    return data
+    return data as null
   }
 }

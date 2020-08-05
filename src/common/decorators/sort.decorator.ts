@@ -1,7 +1,4 @@
-import { I18nExpectedLanguage } from '@altermeliora/payform-types'
-import { BadRequestException, createParamDecorator, ExecutionContext } from '@nestjs/common'
-import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
-import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql'
+import {BadRequestException, createParamDecorator, ExecutionContext} from '@nestjs/common'
 
 interface SortRequestDto {
   skip?: string
@@ -22,16 +19,13 @@ export interface SortResultDto {
   skip?: number
   limit?: number
   sortBy?: [string, SortByTypes]
-  currentLanguage?: I18nExpectedLanguage
 }
 
 export const Sort = createParamDecorator((data: SortData, ctx: ExecutionContext): SortResultDto => {
   const req = ctx.switchToHttp().getRequest()
-  const reqGraphql: ExecutionContextHost = GqlExecutionContext.create(ctx)
-  const reqType = reqGraphql.getType<GqlContextType>()
 
   let result: SortResultDto = {}
-  const query = reqType === 'graphql' ? reqGraphql.getArgs() as SortRequestDto : req.query as SortRequestDto
+  const query = req.query as SortRequestDto
 
   if (query.skip) {
     const skip = parseInt(query.skip, 10)

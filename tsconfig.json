@@ -1,27 +1,17 @@
 {
   "compilerOptions": {
+    "strictNullChecks": true,
     "module": "commonjs",
-    "declaration": false,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
-    "sourceMap": true,
+    "declaration": true,
     "removeComments": true,
-    "noLib": false,
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "target": "es6",
-    "allowJs": true,
-    "outDir": "dist",
-    "rootDir": "./src",
-    "noEmit": true,
-    "lib": [
-      "es7"
-    ]
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common'
 import {EntityManager, Transaction, TransactionManager} from 'typeorm'
 import {httpExceptionMessage} from '../../consts/http-exception-message'
-import {CreateUserRequestDTO, UpdateUserRequestDTO} from '../../domains/user/dtos/user.mutation.dto'
+import {UserCreateRequestDTO, UserUpdateRequestDTO} from '../../domains/user/dtos/user.mutation.dto'
 import {hashPassword} from '../../utils/password.util'
 import {UserEntity} from './user.entity'
 import {UserRepository} from './user.repository'
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   @Transaction()
-  async createOne(dto: CreateUserRequestDTO,
+  async createOne(dto: UserCreateRequestDTO,
                   @TransactionManager() entityManager?: EntityManager): Promise<UserEntity> {
     const { password, ...user } = dto
     if (dto.password !== dto.passwordConfirmation) {
@@ -46,14 +46,13 @@ export class UserService {
     await this.throwExceptionIfUsernameInUse(dto.username)
 
     const hashedPassword = await hashPassword(password)
-    const newUser = await this.repository.createOrUpdateOne({
+    return  await this.repository.createOrUpdateOne({
       password: hashedPassword,
       ...user,
     }, entityManager)
-    return UserEntity.of(newUser)
   }
 
-  async updateOne(dto: UpdateUserRequestDTO): Promise<UserEntity> {
+  async updateOne(dto: UserUpdateRequestDTO): Promise<UserEntity> {
     if (dto.emailAddress) {
       await this.throwExceptionIfEmailInUse(dto.emailAddress)
     }
@@ -61,8 +60,7 @@ export class UserService {
       await this.throwExceptionIfUsernameInUse(dto.username)
     }
 
-    const newUser = await this.repository.createOrUpdateOne(dto)
-    return UserEntity.of(newUser)
+    return await this.repository.createOrUpdateOne(dto)
   }
 
   async removeOne(id: string): Promise<void> {

@@ -1,12 +1,12 @@
-import * as bcrypt from 'bcrypt-nodejs'
+import * as bcrypt from 'bcrypt'
 
-function hashPassword(password: string): string {
-  const salt = bcrypt.genSaltSync('salt');
+const hashPassword = (password: string): string => {
+  const salt = bcrypt.genSaltSync(2)
   return bcrypt.hashSync(password, salt)
 }
 
-function validatePassword(inputPassword: string, userPassword: string): boolean {
-  return bcrypt.compareSync(inputPassword, userPassword)
+const validatePassword = async (inputPassword: string, userPassword: string): Promise<boolean> => {
+  return bcrypt.compare(inputPassword, userPassword)
 }
 
 export { hashPassword, validatePassword }

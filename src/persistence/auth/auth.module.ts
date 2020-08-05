@@ -1,7 +1,6 @@
 import { Global, Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
-import * as c from 'config'
 import { UserModule } from '../user/user.module'
 import { AuthController } from '../../domains/auth/auth.controller'
 import { AuthService } from './auth.service'
@@ -14,7 +13,7 @@ const passportModule = PassportModule.register({ defaultStrategy: 'jwt' })
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secretOrPrivateKey: c.get('jwtToken.secretKey')
+      secretOrPrivateKey: 'secretKey'
     }),
     UserModule
   ],

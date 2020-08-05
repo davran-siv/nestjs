@@ -5,7 +5,6 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common'
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host'
-import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql'
 import { isArray, isObject } from '../../utils'
 
 export enum QueryValueType {
@@ -120,13 +119,6 @@ const getProperValue = (data: DataType, query: QueryValue) => {
 }
 
 export const Filter = createParamDecorator((data: DataType, ctx: ExecutionContext): QueryValue => {
-  const ctxGraph: ExecutionContextHost = GqlExecutionContext.create(ctx);
-  const requestType = ctxGraph.getType<GqlContextType>()
-
-  if(requestType === 'graphql'){
-    return getProperValue(data, ctxGraph.getArgs())
-  }
-
   const request = ctx.switchToHttp().getRequest()
   return getProperValue(data, request.query)
 })

@@ -1,19 +1,18 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
-import * as c from 'config'
-import { httpExceptionMessage } from '../../consts/http-exception-message'
-import { validatePassword } from '../../utils/password.util'
-import { UserResponseDTO } from '../../domains/user/dtos/user.mutation.dto'
-import { UserService } from '../user/user.service'
-import { AuthJwtTokesDto, JwtRefreshTokenPayloadDto } from './interfaces/jwt.interface'
-import { LoginByCredentialsDto, RefreshTokenDto } from './interfaces/login.interface'
+import {Injectable, UnauthorizedException} from '@nestjs/common'
+import {JwtService} from '@nestjs/jwt'
+import {httpExceptionMessage} from '../../consts/http-exception-message'
+import {validatePassword} from '../../utils/password.util'
+import {UserEntity} from '../user/user.entity'
+import {UserService} from '../user/user.service'
+import {AuthJwtTokesDto, JwtRefreshTokenPayloadDto} from './interfaces/jwt.interface'
+import {LoginByCredentialsDto, RefreshTokenDto} from './interfaces/login.interface'
 import uuid = require('uuid')
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {
   }
 
@@ -22,7 +21,7 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException(httpExceptionMessage.auth.credentialsAreWrong)
     }
-    if (!await validatePassword(dto.password, user.password)) {
+    if (!await validatePassword(dto.password, user.password!)) {
       throw new UnauthorizedException(httpExceptionMessage.auth.credentialsAreWrong)
     }
     return this.generateTokensPair(user)
@@ -37,36 +36,36 @@ export class AuthService {
     return this.generateTokensPair(user)
   }
 
-  private generateTokensPair(user: UserResponseDTO) {
+  private generateTokensPair(user: UserEntity) {
     const accessToken = this.generateAccessToken(user)
     const refreshToken = this.generateRefreshToken(user.id)
     return {
       accessToken,
-      refreshToken
+      refreshToken,
     }
   }
 
-  private generateAccessToken(user: UserResponseDTO): string {
+  private generateAccessToken(user: UserEntity): string {
     return this.jwtService.sign(this.getAccessTokenPayload(user), {
-      expiresIn: c.get('jwtToken.accessTokenExpiresIn')
+      expiresIn: '3600',
     })
   }
 
   private generateRefreshToken(userId: string): string {
     const jwtid = uuid.v4()
     return this.jwtService.sign({
-      id: userId
+      id: userId,
     }, {
       jwtid,
-      expiresIn: c.get('jwtToken.refreshTokenExpiresIn')
+      expiresIn: '3600',
     })
   }
 
-  private getAccessTokenPayload(user: UserResponseDTO) {
+  private getAccessTokenPayload(user: UserEntity) {
     return {
       id: user.id,
       email: user.emailAddress,
-      username: user.username
+      username: user.username,
     }
   }
 }

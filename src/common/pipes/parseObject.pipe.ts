@@ -1,5 +1,5 @@
 import {ArgumentMetadata, Injectable} from '@nestjs/common'
-import {isArray, isString} from 'src/utils/variable-type.util'
+import {isArray, isString} from '../../utils'
 
 @Injectable()
 export class ParseObjectPipe {

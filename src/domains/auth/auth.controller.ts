@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { AuthService } from '../../persistence/auth/auth.service'
 import { AuthJwtTokesDto } from '../../persistence/auth/interfaces/jwt.interface'
 import { LoginByCredentialsDto, RefreshTokenDto } from '../../persistence/auth/interfaces/login.interface'
 
-@ApiUseTags('auth')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {

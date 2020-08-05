@@ -1,7 +1,7 @@
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger'
 import { UserEntity } from '../../../persistence/user/user.entity'
 
-export class CreateUserRequestDTO {
+export class UserCreateRequestDTO {
   @ApiProperty()
   readonly firstName: string
   @ApiProperty()
@@ -16,7 +16,7 @@ export class CreateUserRequestDTO {
   readonly emailAddress: string
 }
 
-export class UpdateUserRequestDTO {
+export class UserUpdateRequestDTO {
   @ApiProperty()
   readonly id: string
   @ApiPropertyOptional()

@@ -8,25 +8,25 @@ export class UserRepository extends Repository<UserEntity> {
     return entityManager ? entityManager.save(entity) : this.save(entity)
   }
 
-  findOneById(id: string): Promise<UserEntity> {
+  findOneById(id: string): Promise<UserEntity | undefined> {
     return this.createQueryBuilder('user')
                .where('user.id = :id', { id })
                .getOne()
   }
 
-  findOneByEmail(emailAddress: string): Promise<UserEntity> {
+  findOneByEmail(emailAddress: string): Promise<UserEntity | undefined> {
     return this.createQueryBuilder('users')
                .where('users.emailAddress = :emailAddress', { emailAddress })
                .getOne()
   }
 
-  findOneByUsername(username: string): Promise<UserEntity> {
+  findOneByUsername(username: string): Promise<UserEntity | undefined> {
     return this.createQueryBuilder('users')
                .where('users.emailAddress = :username', { username })
                .getOne()
   }
 
-  findOneByEmailOrUsernameWithPassword(emailAddressOrUsername: string): Promise<UserEntity> {
+  findOneByEmailOrUsernameWithPassword(emailAddressOrUsername: string): Promise<UserEntity | undefined> {
     return this.createQueryBuilder('users')
                .where('users.emailAddress = :emailAddressOrUsername', { emailAddressOrUsername })
                .orWhere('users.username = :emailAddressOrUsername', { emailAddressOrUsername })
