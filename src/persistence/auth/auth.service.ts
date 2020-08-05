@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import * as c from 'config'
-import { HttpExceptionMessage } from '../../consts/http-exception-message'
+import { httpExceptionMessage } from '../../consts/http-exception-message'
 import { validatePassword } from '../../utils/password.util'
-import { UserResponseDTO } from '../../domains/user/user.interfaces'
+import { UserResponseDTO } from '../../domains/user/dtos/user.mutation.dto'
 import { UserService } from '../user/user.service'
 import { AuthJwtTokesDto, JwtRefreshTokenPayloadDto } from './interfaces/jwt.interface'
 import { LoginByCredentialsDto, RefreshTokenDto } from './interfaces/login.interface'
@@ -20,10 +20,10 @@ export class AuthService {
   async loginByCredentials(dto: LoginByCredentialsDto): Promise<AuthJwtTokesDto> {
     const user = await this.userService.findOneByEmailOrUsernameWithPassword(dto.emailOrUsername)
     if (!user) {
-      throw new UnauthorizedException(HttpExceptionMessage.auth.credentialsAreWrong)
+      throw new UnauthorizedException(httpExceptionMessage.auth.credentialsAreWrong)
     }
     if (!await validatePassword(dto.password, user.password)) {
-      throw new UnauthorizedException(HttpExceptionMessage.auth.credentialsAreWrong)
+      throw new UnauthorizedException(httpExceptionMessage.auth.credentialsAreWrong)
     }
     return this.generateTokensPair(user)
   }

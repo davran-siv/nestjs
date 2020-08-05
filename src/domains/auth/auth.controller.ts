@@ -1,8 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger'
-import { AuthService } from './auth.service'
-import { AuthJwtTokesDto } from './interfaces/jwt.interface'
-import { LoginByCredentialsDto, RefreshTokenDto } from './interfaces/login.interface'
+import { AuthService } from '../../persistence/auth/auth.service'
+import { AuthJwtTokesDto } from '../../persistence/auth/interfaces/jwt.interface'
+import { LoginByCredentialsDto, RefreshTokenDto } from '../../persistence/auth/interfaces/login.interface'
 
 @ApiUseTags('auth')
 @Controller('auth')
@@ -11,7 +11,7 @@ export class AuthController {
   }
 
   @Post()
-  @ApiOperation({ title: 'Login by credentials' })
+  @ApiOperation({ description: 'Login by credentials' })
   @ApiResponse({ status: 200, description: 'Successfully authorized' })
   @ApiResponse({ status: 401, description: 'Credentials are wrong' })
   async loginByCredentials(@Body() dto: LoginByCredentialsDto): Promise<AuthJwtTokesDto> {
@@ -19,7 +19,7 @@ export class AuthController {
   }
 
   @Post('/refreshToken')
-  @ApiOperation({ title: 'Refresh token' })
+  @ApiOperation({ description: 'Refresh token' })
   @ApiResponse({ status: 200, description: 'Returns access and refresh tokens' })
   @ApiResponse({ status: 401, description: 'Refresh token is not valid' })
   async refreshToken(@Body() dto: RefreshTokenDto): Promise<AuthJwtTokesDto> {

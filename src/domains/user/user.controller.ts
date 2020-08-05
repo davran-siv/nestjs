@@ -1,29 +1,30 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseGuards } from '@nestjs/common'
-import { CreateUserRequestDTO, UpdateUserRequestDTO, UserResponseDTO } from './user.interfaces'
-import { UserService } from '../../persistence/user/user.service'
+import {UserResponseDto} from './dtos/user.response.dto'
+import {UserDomain} from './user.domain'
+import { CreateUserRequestDTO, UpdateUserRequestDTO } from './dtos/user.mutation.dto'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly service: UserService) {
+  constructor(private readonly domain: UserDomain) {
 
   }
 
   @Get(':id')
   @HttpCode(200)
   @UseGuards(AuthGuard())
-  findOne(@Param('id') id): Promise<UserResponseDTO> {
-    return this.service.findOneById(id)
+  findOneById(@Param('id') id): Promise<UserResponseDto> {
+    return this.domain.findOneById(id)
   }
 
   @Post()
   @HttpCode(201)
-  createOne(@Body() dto: CreateUserRequestDTO): Promise<UserResponseDTO> {
+  createOne(@Body() dto: CreateUserRequestDTO): Promise<UserResponseDto> {
     return this.service.createOne(dto)
   }
 
   @Put(':id')
-  updateOne(@Body() dto: UpdateUserRequestDTO): Promise<UserResponseDTO> {
+  updateOne(@Body() dto: UpdateUserRequestDTO): Promise<UserResponseDto> {
     return this.service.updateOne(dto)
   }
 

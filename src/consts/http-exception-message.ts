@@ -1,11 +1,12 @@
-export class HttpExceptionMessage {
-  static user = class {
-    static passwordsDoNotMatch = 'The password do not match the conformation password'
-    static emailAlreadyInUse = 'An email is already in use'
-    static usernameAlreadyInUse = 'A username is already in use'
-  }
+export const httpExceptionMessage = {
+  user: {
+    passwordsDoNotMatch: 'The password do not match the conformation password',
+    emailAlreadyInUse: 'An email is already in use',
+    usernameAlreadyInUse: 'A username is already in use',
+    notFoundById: 'User not found by id',
+  },
 
-  static auth = class {
-    static credentialsAreWrong = 'Credentials are wrong'
-  }
+  auth: {
+    credentialsAreWrong: 'Credentials are wrong',
+  },
 }

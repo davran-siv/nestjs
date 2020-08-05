@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm'
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: 'uuid' })
   id: string
 
   @Column({ name: 'first_name' })
@@ -11,46 +11,27 @@ export class UserEntity {
   @Column({ name: 'last_name' })
   lastName: string
 
-  @Column({ name: 'middle_name' })
-  middleName: string
-
   @Column({ type: 'varchar' })
   username: string
 
-  @Column({ type: 'varchar', length: 255, select: false })
-  password: string
+  @Column({ select: false })
+  password?: string
 
-  @Column({ name: 'is_deleted', default: false, type: 'boolean' })
-  isDeleted: boolean
+  @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+  deletedAt: boolean | null
 
   @Column({ name: 'is_active', default: true })
   isActive: boolean
 
-  @Column({ name: 'created_at', type: 'time without time zone' })
+  @CreateDateColumn({ name: 'created_at', nullable: true })
   createdAt: Date
 
-  @Column({ name: 'updated_at', type: 'time without time zone' })
-  updatedAt: Date
+  @UpdateDateColumn({ name: 'updated_at', nullable: true })
+  updatedAt: Date | null
 
   @Column({ name: 'email_address', type: 'varchar' })
   emailAddress: string
 
   @Column({ name: 'is_email_verified', default: false })
   isEmailVerified: boolean
-
-  @Column({ name: 'country_code', type: 'varchar' })
-  countryCode: string
-
-  @Column({ name: 'phone_number', type: 'varchar' })
-  phoneNumber: string
-
-  @Column({ name: 'is_phone_verified', default: false })
-  isPhoneVerified: boolean
-
-  @Column({ name: 'birth_date', type: 'date' })
-  birthDate: string
-
-  @Column({ type: 'varchar' })
-  photo: string
-
 }

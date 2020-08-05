@@ -1,4 +1,4 @@
-import {Delete, Get, Inject, Post, Put, Type} from '@nestjs/common'
+import {Delete, Get, Inject, Post, Put, Response, Type} from '@nestjs/common'
 import {ItemsWithCount} from '../generics/items-with-count.generic'
 
 interface BaseController {
@@ -20,32 +20,32 @@ interface BaseService<Create = any, Update = any, Response = any> {
   getAll(): ItemsWithCount<Response>
 }
 
-export const BaseController = ({ service, CreateDto, UpdateDto, ResponseDto }: BaseController) => {
+export const BaseController = (data: BaseController) => {
   class Controller {
-    @Inject(service) private readonly service: BaseService
+    @Inject(data.service) private readonly service: BaseService
 
     @Post()
-    async createOne(dto: CreateDto): Promise<UpdateDto> {
+    async createOne(dto: Type<any>): Promise<any> {
 
     }
 
     @Put(':id')
-    async updateOne() {
+    async updateOne(dto: Type<any>): Promise<any> {
 
     }
 
     @Delete(':id')
-    async deleteOne() {
+    async deleteOne(): Promise<void> {
 
     }
 
     @Get(':id')
-    async findOne() {
+    async findOne(): Promise<any> {
 
     }
 
     @Get()
-    async getAll() {
+    async getAll(): Promise<any> {
 
     }
   }

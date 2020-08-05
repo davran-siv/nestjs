@@ -1,14 +1,10 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
-import { EntityManager, Transaction, TransactionManager } from 'typeorm'
-import { HttpExceptionMessage } from '../../consts/http-exception-message'
-import { hashPassword } from '../../utils/password.util'
-import {
-  CreateUserRequestDTO,
-  UpdateUserRequestDTO,
-  UserResponseDTO,
-  UserResponseWithPasswordDto
-} from '../../domains/user/user.interfaces'
-import { UserRepository } from './user.repository'
+import {ForbiddenException, Injectable, NotFoundException} from '@nestjs/common'
+import {EntityManager, Transaction, TransactionManager} from 'typeorm'
+import {httpExceptionMessage} from '../../consts/http-exception-message'
+import {CreateUserRequestDTO, UpdateUserRequestDTO} from '../../domains/user/dtos/user.mutation.dto'
+import {hashPassword} from '../../utils/password.util'
+import {UserEntity} from './user.entity'
+import {UserRepository} from './user.repository'
 
 @Injectable()
 export class UserService {
@@ -20,32 +16,31 @@ export class UserService {
   private async throwExceptionIfEmailInUse(emailAddress: string): Promise<void> {
     const foundUserByEmail = await this.repository.findOneByEmail(emailAddress)
     if (foundUserByEmail) {
-      throw new ForbiddenException(HttpExceptionMessage.user.emailAlreadyInUse)
+      throw new ForbiddenException(httpExceptionMessage.user.emailAlreadyInUse)
     }
   }
 
   private async throwExceptionIfUsernameInUse(username: string): Promise<void> {
     const foundUserByUsername = await this.repository.findOneByUsername(username)
     if (foundUserByUsername) {
-      throw new ForbiddenException(HttpExceptionMessage.user.usernameAlreadyInUse)
+      throw new ForbiddenException(httpExceptionMessage.user.usernameAlreadyInUse)
     }
   }
 
-  async findOneById(id: string): Promise<UserResponseDTO> {
+  async findOneById(id: string): Promise<UserEntity> {
     const user = await this.repository.findOneById(id)
     if (!user) {
       throw new NotFoundException()
     }
     return user
-    // return UserResponseDTO.of(user)
   }
 
   @Transaction()
   async createOne(dto: CreateUserRequestDTO,
-                  @TransactionManager() entityManager?: EntityManager): Promise<UserResponseDTO> {
+                  @TransactionManager() entityManager?: EntityManager): Promise<UserEntity> {
     const { password, ...user } = dto
     if (dto.password !== dto.passwordConfirmation) {
-      throw new ForbiddenException(HttpExceptionMessage.user.passwordsDoNotMatch)
+      throw new ForbiddenException(httpExceptionMessage.user.passwordsDoNotMatch)
     }
     await this.throwExceptionIfEmailInUse(dto.emailAddress)
     await this.throwExceptionIfUsernameInUse(dto.username)
@@ -53,12 +48,12 @@ export class UserService {
     const hashedPassword = await hashPassword(password)
     const newUser = await this.repository.createOrUpdateOne({
       password: hashedPassword,
-      ...user
+      ...user,
     }, entityManager)
-    return UserResponseDTO.of(newUser)
+    return UserEntity.of(newUser)
   }
 
-  async updateOne(dto: UpdateUserRequestDTO): Promise<UserResponseDTO> {
+  async updateOne(dto: UpdateUserRequestDTO): Promise<UserEntity> {
     if (dto.emailAddress) {
       await this.throwExceptionIfEmailInUse(dto.emailAddress)
     }
@@ -67,7 +62,7 @@ export class UserService {
     }
 
     const newUser = await this.repository.createOrUpdateOne(dto)
-    return UserResponseDTO.of(newUser)
+    return UserEntity.of(newUser)
   }
 
   async removeOne(id: string): Promise<void> {
@@ -75,8 +70,7 @@ export class UserService {
     await this.repository.createOrUpdateOne(user)
   }
 
-  async findOneByEmailOrUsernameWithPassword(emailOrUsername: string): Promise<UserResponseWithPasswordDto | undefined> {
-    const user = await this.repository.findOneByEmailOrUsernameWithPassword(emailOrUsername)
-    return user ? UserResponseWithPasswordDto.of(user) : user
+  async findOneByEmailOrUsernameWithPassword(emailOrUsername: string): Promise<UserEntity | undefined> {
+    return await this.repository.findOneByEmailOrUsernameWithPassword(emailOrUsername)
   }
 }
